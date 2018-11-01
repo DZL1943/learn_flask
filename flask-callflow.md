@@ -8,7 +8,7 @@ Flask.run -> werkzeug.run_simple -> werkzeug.make_server -> serve_forever
 - werkzeug.WSGIRequestHandler < http.BaseHTTPRequestHandler < socketserver.StreamRequestHandler < socketserver.BaseRequestHandler
 
 ![classes_socket-http-wsgi](images/classes_socket-http-wsgi.svg "")
-<!--
+
 ```plantuml
 @startuml socket-http-wsgi
 'flask
@@ -156,11 +156,11 @@ class werkzeug.WSGIRequestHandler {
 }
 @enduml
 ```
--->
+
 详细调用序列图
 
 ![flask-callflow](images/flask-callflow.svg "")
-<!--
+
 ```plantuml
 @startuml flask-callflow
 autonumber
@@ -211,4 +211,3 @@ main -> FlaskApp: run
             werkzeug.BaseWSGIServer -> werkzeug.BaseWSGIServer: server_close
 @enduml
 ```
--->
