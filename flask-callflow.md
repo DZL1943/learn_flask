@@ -170,8 +170,8 @@ class werkzeug.WSGIRequestHandler {
 ```plantuml
 @startuml flask-callflow
 autonumber
-main -> FlaskApp: run
-    FlaskApp -> werkzeug: run_simple
+main -> flask.Flask: run
+    flask.Flask -> werkzeug: run_simple
     note left: application:self
         werkzeug -> werkzeug: make_server
             werkzeug -> werkzeug.BaseWSGIServer: __init__
@@ -212,6 +212,16 @@ main -> FlaskApp: run
                                                 werkzeug.WSGIRequestHandler -> werkzeug.WSGIRequestHandler: make_environ
                                                 werkzeug.WSGIRequestHandler -> werkzeug.WSGIRequestHandler: run_wsgi.execute
                                                 note left: app(environ, start_response)
+                                                    werkzeug.WSGIRequestHandler -> flask.Flask: __call__
+                                                        flask.Flask -> flask.Flask: wsgi_app
+                                                            flask.Flask -> flask.Flask: request_context
+                                                            flask.Flask -> flask.Flask: preprocess_request
+                                                            flask.Flask -> flask.Flask: dispatch_request
+                                                                flask.Flask -> flask.Flask: match_request
+                                                            flask.Flask -> flask.Flask: make_response
+                                                                flask.Flask -> werkzeug.Response
+                                                            flask.Flask -> flask.Flask: process_response
+                                                            flask.Flask -> werkzeug.Response: __call__
                                 socketserver.BaseRequestHandler -> socketserver.StreamRequestHandler: finish
                                 'note left: override
             werkzeug.BaseWSGIServer -> werkzeug.BaseWSGIServer: server_close
